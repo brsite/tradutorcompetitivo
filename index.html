@@ -7,7 +7,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-C1T7KDLS8F');
 </script>
     <meta charset="UTF-8">
@@ -131,75 +130,83 @@
             font-family: 'Orbitron', sans-serif;
             color: var(--primary);
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-size: 2rem;
             text-shadow: 0 0 15px rgba(255,0,0,0.5);
         }
-        /* Carrossel 3D - mobile-first */
+
+        /* === CARROSSEL SIMPLES HORIZONTAL (sem 3D, mais leve) === */
         .carousel-container {
-            perspective: 600px;
-            height: 240px;
-            margin: 30px auto 10px;
+            margin: 20px auto 30px;
+            overflow: hidden;
             position: relative;
-            max-width: 100%;
+            width: 100%;
+            max-width: 1000px;
+            height: 180px; /* altura reduzida */
         }
         .carousel {
-            width: 100%;
+            display: flex;
             height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.8s ease;
-            animation: auto-rotate 40s linear infinite;
+            animation: slide 40s linear infinite;
+            width: max-content; /* permite que os itens fiquem em linha */
         }
-        .carousel:hover { animation-play-state: paused; }
+        .carousel:hover {
+            animation-play-state: paused;
+        }
         .carousel-item {
-            position: absolute;
-            width: 140px;
-            height: 200px;
-            top: 20px;
-            left: 50%;
-            margin-left: -70px;
-            background: rgba(30, 30, 50, 0.8);
+            flex: 0 0 auto;
+            width: 160px;
+            height: 160px;
+            margin: 0 12px;
+            background: rgba(30, 30, 50, 0.85);
             border-radius: 12px;
             border: 2px solid var(--accent);
-            box-shadow: 0 10px 30px rgba(255,153,0,0.3);
+            box-shadow: 0 6px 20px rgba(255,153,0,0.2);
             overflow: hidden;
-            transform-style: preserve-3d;
-            backface-visibility: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 10px;
             text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .carousel-item:hover {
+            transform: scale(1.08);
+            box-shadow: 0 10px 30px rgba(255,153,0,0.5);
         }
         .carousel-item img {
             max-width: 100%;
-            max-height: 100px;
+            max-height: 90px;
             object-fit: contain;
             border-radius: 8px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .carousel-item span {
             font-size: 0.85rem;
             font-weight: bold;
             color: var(--accent);
         }
-        @keyframes auto-rotate {
-            from { transform: rotateY(0deg); }
-            to { transform: rotateY(360deg); }
+
+        @keyframes slide {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); } /* move metade da largura total */
         }
-        .carousel-item:nth-child(1) { transform: rotateY(0deg) translateZ(250px); }
-        .carousel-item:nth-child(2) { transform: rotateY(36deg) translateZ(250px); }
-        .carousel-item:nth-child(3) { transform: rotateY(72deg) translateZ(250px); }
-        .carousel-item:nth-child(4) { transform: rotateY(108deg) translateZ(250px); }
-        .carousel-item:nth-child(5) { transform: rotateY(144deg) translateZ(250px); }
-        .carousel-item:nth-child(6) { transform: rotateY(180deg) translateZ(250px); }
-        .carousel-item:nth-child(7) { transform: rotateY(216deg) translateZ(250px); }
-        .carousel-item:nth-child(8) { transform: rotateY(252deg) translateZ(250px); }
-        .carousel-item:nth-child(9) { transform: rotateY(288deg) translateZ(250px); }
-        .carousel-item:nth-child(10) { transform: rotateY(324deg) translateZ(250px); }
-        /* Slides do curso */
+
+        /* Ajustes responsivos */
+        @media (max-width: 480px) {
+            .carousel-container { height: 150px; }
+            .carousel-item { width: 130px; height: 130px; margin: 0 8px; }
+            .carousel-item img { max-height: 70px; }
+            .carousel { animation-duration: 50s; } /* mais lento no celular */
+        }
+        @media (min-width: 768px) {
+            .carousel-item { width: 180px; height: 180px; }
+            .carousel-item img { max-height: 100px; }
+            .carousel-container { height: 200px; }
+        }
+
+        /* Slides do curso (mantido igual) */
         .tutorial-slides {
             display: flex;
             overflow-x: auto;
@@ -233,6 +240,7 @@
             height: auto;
             display: block;
         }
+
         /* Botão centralizado */
         .center-btn {
             text-align: center;
@@ -257,10 +265,9 @@
             color: #000;
             box-shadow: 0 0 30px rgba(255,153,0,0.7);
         }
+
         /* Apoiadores */
-        #apoiadores {
-            text-align: center;
-        }
+        #apoiadores { text-align: center; }
         .supporters {
             column-count: 1;
             column-gap: 30px;
@@ -274,6 +281,10 @@
             font-size: 1.05rem;
             color: var(--light);
         }
+        @media (min-width: 768px) {
+            .supporters { column-count: 3; }
+        }
+
         .support-call {
             font-size: 1.4rem;
             font-weight: bold;
@@ -303,6 +314,7 @@
             color: var(--accent);
             font-size: 1.5rem;
         }
+
         /* Ícones SVG das redes */
         .social-logo {
             width: auto;
@@ -342,65 +354,6 @@
         .tiktok-btn { background: rgba(0,0,0,0.35); border: 2px solid #ee1d52; }
         .tiktok-btn:hover { background: linear-gradient(45deg, #ee1d52, #000); box-shadow: 0 0 30px #ee1d52; }
 
-        /* Media Queries - progressive enhancement */
-        @media (min-width: 480px) {
-            header h1 { font-size: 4.2rem; }
-            .carousel-container { height: 280px; }
-            .carousel-item { width: 160px; height: 220px; margin-left: -80px; }
-            .carousel-item img { max-height: 110px; }
-            .carousel-item:nth-child(n) { transform: rotateY(calc(var(--i) * 36deg)) translateZ(280px); }
-        }
-
-        @media (min-width: 768px) {
-            header {
-                height: 70vh;
-                min-height: 500px;
-            }
-            header h1 {
-                font-size: 6rem;
-                letter-spacing: 4px;
-            }
-            nav {
-                padding: 12px 0;
-            }
-            nav ul {
-                gap: 35px;
-            }
-            nav a {
-                font-size: 1.15rem;
-                padding: 10px 16px;
-            }
-            .carousel-container {
-                perspective: 1000px;
-                height: 320px;
-                margin: 50px auto 20px;
-                max-width: 900px;
-            }
-            .carousel-item {
-                width: 180px;
-                height: 280px;
-                margin-left: -90px;
-                padding: 12px;
-            }
-            .carousel-item img { max-height: 140px; }
-            .carousel-item:nth-child(n) { transform: rotateY(calc(var(--i) * 36deg)) translateZ(400px); }
-            section {
-                padding: 40px;
-                margin-bottom: 70px;
-            }
-            h2 { font-size: 2.8rem; }
-            .tutorial-slides .slide-item { width: 220px; }
-            .supporters { column-count: 3; }
-            .social-btn { padding: 14px 28px; font-size: 1.3rem; }
-            .social-links { gap: 25px; }
-        }
-
-        @media (min-width: 1024px) {
-            header h1 { font-size: 7rem; }
-            .carousel-container { max-width: 1100px; }
-            .carousel-item { width: 200px; height: 300px; margin-left: -100px; }
-        }
-
         img, .carousel-item, .slide-item {
             max-width: 100%;
             height: auto;
@@ -419,9 +372,11 @@
             <li><a href="#apoiadores">Apoiadores</a></li>
         </ul>
     </nav>
+
     <header>
         <h1>TRADUTOR COMPETITIVO</h1>
     </header>
+
     <main>
         <section id="canal">
             <h2>Canais Oficiais</h2>
@@ -453,12 +408,14 @@
                 </a>
             </div>
         </section>
+
         <section id="sobre">
             <h2>Sobre o Tradutor Competitivo</h2>
             <p>O Tradutor Competitivo é um streamer que redefine o entretenimento no cenário de Counter-Strike 2, combinando habilidade competitiva com comédia absurda. Jogando exclusivamente com a icônica voz sintetizada do Google Tradutor para todas as comunicações e calls, ele eleva o nível de diversão ao máximo — especialmente nas ranques mais caóticas do Prata.</p>
             <p>Seu diferencial está no Soundpad insano: milhares de efeitos sonoros, memes instantâneos, frases prontas, trilhas épicas e até uma Alexa irônica que interage em tempo real, transformando cada partida em um show imprevisível e hilário. É o equilíbrio perfeito entre tática competitiva e entretenimento puro, provando que é possível ser "competitivo" e fazer todo mundo rir ao mesmo tempo.</p>
             <p>Para democratizar essa loucura, o Tradutor criou um <strong>curso gratuito completo</strong>, onde ensina passo a passo como configurar tudo: Balabolka para a voz do Google Tradutor, Soundpad para os efeitos sonoros massivos, AntiMicroX para mapeamento de teclas, e outras ferramentas essenciais para replicar o setup e criar seu próprio estilo único.</p>
         </section>
+
         <section id="setup">
             <h2>🎮 SETUP DO TRADUTOR 🎥</h2>
             <div class="carousel-container">
@@ -473,9 +430,22 @@
                     <div class="carousel-item"><img src="https://m.media-amazon.com/images/I/81Sh1mHyxvL.jpg" alt="Fone"><span>🎧 Fone de Ouvido: OneOdio Studio Pro-10 Black</span></div>
                     <div class="carousel-item"><img src="https://i.ytimg.com/vi/6UHPid74RZw/maxresdefault.jpg" alt="Gabinete"><span>🖤 Gabinete: TGT Flare RGB Rainbow</span></div>
                     <div class="carousel-item"><img src="https://i5.walmartimages.com/seo/FSP-Power-Supply-FSP400-60GHS-85-R1-400W-PS3-8cm-sleeve-Fan-3xSATA-Active-PFC-80PLUS-BRONZE-Retail_4f00f541-26d2-4ce3-ab3c-631a0628cbc9_1.3168e7ecca366f0ea3e2a31e4067828f.jpeg" alt="Fonte"><span>🔌 Fonte: 400W Selo 80 Plus Bronze</span></div>
+
+                    <!-- Itens duplicados para loop infinito suave -->
+                    <div class="carousel-item"><img src="https://cdn.mos.cms.futurecdn.net/keLcKugWS392uJP7PiadSX.jpg" alt="CPU"><span>🧠 CPU: AMD Ryzen 5 4600G</span></div>
+                    <div class="carousel-item"><img src="https://i.redd.it/3200-mhz-32-gb-ram-vs-3600-mhz-16-gb-ram-v0-xixn8h113vdd1.jpg?width=4032&format=pjpg&auto=webp&s=ca34e503242225e6026cfe131704bcf0f2cf7960" alt="RAM"><span>💾 RAM: 16 GB DDR4 3200 MHz DANTALION Z</span></div>
+                    <div class="carousel-item"><img src="https://cdn.mos.cms.futurecdn.net/nDzrxYQQYkhd5jFW33nuY6.jpg" alt="GPU"><span>🎨 GPU: NVIDIA GTX 1660 Super 6 GB</span></div>
+                    <div class="carousel-item"><img src="https://images.philips.com/is/image/philipsconsumer/21af29956fce4091a21fb020008ecd70?$png$&wid=1200&hei=630" alt="Monitor"><span>🖥️ Monitor: Philips 242V8A 24" Full HD IPS 75 Hz</span></div>
+                    <div class="carousel-item"><img src="https://cdn.shopify.com/s/files/1/0012/4957/4961/files/Redragon_K513_Membrane_Keyboard_18.jpg?v=1693811453" alt="Teclado"><span>⌨️ Teclado: Redragon Aditya 100% RGB Membrana</span></div>
+                    <div class="carousel-item"><img src="https://i.zst.com.br/thumbs/12/8/16/1978534903.jpg" alt="Mouse"><span>🖱️ Mouse: Fortrek Cruzader</span></div>
+                    <div class="carousel-item"><img src="https://cdn-shop.adafruit.com/970x728/6285-00.jpg" alt="Controle"><span>🕹️ Controle: USB SNES (LuaTek, genérico)</span></div>
+                    <div class="carousel-item"><img src="https://m.media-amazon.com/images/I/81Sh1mHyxvL.jpg" alt="Fone"><span>🎧 Fone de Ouvido: OneOdio Studio Pro-10 Black</span></div>
+                    <div class="carousel-item"><img src="https://i.ytimg.com/vi/6UHPid74RZw/maxresdefault.jpg" alt="Gabinete"><span>🖤 Gabinete: TGT Flare RGB Rainbow</span></div>
+                    <div class="carousel-item"><img src="https://i5.walmartimages.com/seo/FSP-Power-Supply-FSP400-60GHS-85-R1-400W-PS3-8cm-sleeve-Fan-3xSATA-Active-PFC-80PLUS-BRONZE-Retail_4f00f541-26d2-4ce3-ab3c-631a0628cbc9_1.3168e7ecca366f0ea3e2a31e4067828f.jpeg" alt="Fonte"><span>🔌 Fonte: 400W Selo 80 Plus Bronze</span></div>
                 </div>
             </div>
         </section>
+
         <section id="curso">
             <h2>Curso Gratuito</h2>
             <p>Quer aprender a dominar voz sintetizada, efeitos sonoros em tempo real e criar seu próprio caos divertido em jogos? O curso gratuito do Tradutor Competitivo explica tudo de forma clara e prática.</p>
@@ -492,6 +462,7 @@
                 </a>
             </div>
         </section>
+
         <section id="apoiadores">
             <h2>Agradecimentos aos Apoiadores via LivePix</h2>
             <p>Um imenso obrigado a todos que apoiam o projeto e tornam essas lives e criações possíveis. Vocês são parte dessa loucura!</p>
@@ -501,20 +472,21 @@
             <div class="support-call">
                 Quer fazer parte dessa lista?<br>
                 Apoie o Tradutor Competitivo nas lives via LIVEPIX lendo o QR Code da tela e apoiando com qualquer valor a partir de 1 real.
-                
+               
                 <ul class="benefits-list">
                     <li>Nome eternizado na lista especial de apoiadores do site e nas lives</li>
                     <li>Música personalizada de homenagem criada com IA especialmente para você, tocada ao vivo durante as transmissões</li>
                     <li>Prioridade para jogar junto com o Tradutor Competitivo em partidas especiais ou calls exclusivas</li>
                     <li>Acesso à comunidade exclusiva no Discord, com canal dedicado para apoiadores, memes internos e interações mais próximas</li>
                 </ul>
-                
+               
                 <p style="margin-top: 35px; font-style: italic; opacity: 0.9; font-size: 1.15rem;">
                     Seu apoio transforma o caos divertido em algo ainda maior. Obrigado por fazer parte dessa jornada insana e hilária!
                 </p>
             </div>
         </section>
     </main>
+
     <script>
         const sections = document.querySelectorAll('section');
         const observer = new IntersectionObserver(entries => {
